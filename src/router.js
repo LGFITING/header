@@ -13,7 +13,7 @@ export default function(router){
             component:Home
         }
     })
-    router.redirect({
-        '*':'/home'
-    })
+    // router.redirect({
+    //     '*':'/home'
+    // })
 }

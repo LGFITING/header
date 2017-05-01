@@ -1,110 +1,79 @@
 <template>
-  <!-- <div id="app">
-      <lg-header title="主题" fixed>
-          <go-left slot='left'
-                   :leftname=leftname
-                   @lgevent="lgevent"
-                    :lgevent=leftname
-                    v-show="left"
-                    v-link="'/Bar'">
-          </go-left>
-           <go-cancel slot='cancel'
-                    :cancelname=cancelname
-                    @lgevent="lgevent"
-                     :lgevent=cancelname
-                    v-show="cancel">
-            </go-cancel>
-          <go-right slot='right'
-                    :rightname=rightname
-                    v-show="right"
-                    @lgevent="lgevent"
-                    :lgevent= rightname>
-         </go-right>
-          <go-complete slot='complete'
-                   :complete=complete
-                    v-show="finish"
-                    @lgevent="lgevent"
-                    :lgevent=complete>
-         </go-complete>
+  <div id="app">
+      <lg-header :title=theme fixed>
+        <lg-button slot="left"
+             :buttonname=leftbutton
+              @lgevent="lgevent"
+              :lgevent=leftbutton left :class="{active:isActive}">
+        </lg-button>
+        <lg-button slot="right"
+              :buttonname=rightbutton
+              @lgevent="lgevent"
+              :lgevent=rightbutton right :class="{active:isActive}">
+        </lg-button>
       </lg-header>
           <div class="" style="margin-top:50px;text-align:center;">
             <p @click="choose" v-text="chooseList"></p>
           </div>
-  </div> -->
+  </div>
 
   <router-view></router-view>
 </template>
 
 <script>
 import lgHeader from './components/Header.vue'
-import goLeft from './components/header/goLeft.vue'
-import goRight from './components/header/goRight.vue'
-import goCancel from './components/header/Cancel.vue'
-import goComplete from './components/header/Complete.vue'
-
+import lgButton from './components/Mybutton.vue'
 export default {
   replace: false,
   data () {
     return {
-        oprate:false,
-        leftname:'返回',
-        rightname:'发送',
-        complete:'完成',
-        cancelname:'取消',
-        finish:false,
-        right:true,
+        oprate:true,
         chooseList:'点击选择列表',
-        left:true,
-        cancel:false
+        leftbutton:'',
+        rightbutton:'',
+        theme:'自定义主题',
+        isActive:false
     }
 },
 ready(){
     let vm = this;
     if(vm.oprate==true){
-        vm.leftname = '取消'
-    }
-    else{
-        vm.leftname = '返回'
+        vm.leftbutton = '返回'
+        vm.rightbutton = '发送'
     }
 },
 methods:{
     lgevent(type){
         let vm = this;
         if(type=="取消"){
-            console.log(type);
-            vm.left = true;
-            vm.cancel = false;
-            vm.right = true;
-            vm.finish = false;
+          vm.leftbutton = '返回'
+          vm.rightbutton = '发送'
+          vm.isActive = false
+          console.log(type);
         }
         if(type=="返回"){
             console.log(type);
         }
-        if(type=="完成"){
-            console.log(type);
-            vm.left = true;
-            vm.cancel = false;
-            vm.right = true;
-            vm.finish = false;
-        }
         if(type=="发送"){
             console.log(type);
+        }
+        if(type=="完成"){
+          vm.leftbutton = '返回'
+          vm.rightbutton = '发送'
+          console.log(type);
+          vm.isActive = false
         }
 },
 choose(){
         let vm = this;
-        vm.left = false;
-        vm.cancel = true;
-        vm.right = false;
-        vm.finish = true;
+        vm.leftbutton = '取消'
+        vm.rightbutton = '完成'
+        vm.isActive = true
 }
 },
 components:{
     lgHeader,
-    goLeft,
-    goRight,
-    goCancel,
-    goComplete
+    lgButton
 }
 }
 </script>
@@ -112,5 +81,9 @@ components:{
 <style>
 body {
   font-family: Helvetica, sans-serif;
+}
+.active{
+  color:blue;
+  font-size:bold;
 }
 </style>

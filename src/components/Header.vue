@@ -1,26 +1,20 @@
 <template>
     <div class="lg-header" :class="{ 'is-fixed': fixed }">
-        <div class="lg-header-button is-left">
-          <slot name="left"></slot>
-        </div>
-        <div class="lg-header-button is-cancel">
-          <slot name="cancel"></slot>
-        </div>
+      <div class="lg-header-button is-left">
+        <slot name="left"></slot>
+      </div>
         <h4 class="lg-header-title" v-text="title"></h4>
         <div class="lg-header-button is-right">
           <slot name="right"></slot>
-        </div>
-        <div class="lg-header-button is-complete">
-          <slot name="complete"></slot>
         </div>
     </div>
 </template>
 <script type="text/javascript">
     export default{
-        name: 'lg-header',
         props: {
           fixed: Boolean,
-          title: String
+          title: String,
+          left:Boolean
       }
     }
 </script>
@@ -47,7 +41,6 @@
 }
 .is-left{
     text-align:left;
-    flex:1;
 }
 .is-cancel{
     text-align:left;
@@ -56,7 +49,6 @@
 }
 .is-right{
     text-align:right;
-    flex:1;
 }
 .is-complete{
     text-align:right;
