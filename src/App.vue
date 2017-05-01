@@ -15,6 +15,8 @@
           <div class="" style="margin-top:50px;text-align:center;">
             <p @click="choose" v-text="chooseList"></p>
           </div>
+          <Increment></Increment>
+          <Display></Display>
   </div>
 
   <router-view></router-view>
@@ -23,6 +25,13 @@
 <script>
 import lgHeader from './components/Header.vue'
 import lgButton from './components/Mybutton.vue'
+
+
+
+//vuex测试用
+import Display from './components/Display.vue'
+import Increment from './components/Increment.vue'
+import store from './vuex/store' // import 我们刚刚创建的 store
 export default {
   replace: false,
   data () {
@@ -69,12 +78,16 @@ choose(){
         vm.leftbutton = '取消'
         vm.rightbutton = '完成'
         vm.isActive = true
+        alert(store.state.count);
 }
 },
 components:{
     lgHeader,
-    lgButton
-}
+    lgButton,
+    Display,
+    Increment
+},
+store
 }
 </script>
 
@@ -84,6 +97,6 @@ body {
 }
 .active{
   color:blue;
-  font-size:bold;
+  font-weight:bold;
 }
 </style>
